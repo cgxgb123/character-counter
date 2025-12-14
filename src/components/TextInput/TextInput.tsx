@@ -10,6 +10,7 @@ const TextInput: React.FC<TextInputProps> = ({
   return (
     <div className="w-full">
       <textarea
+        className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         placeholder={placeholder}
         defaultValue={initialValue}
         rows={6}
