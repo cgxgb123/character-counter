@@ -7,13 +7,13 @@ export const StatsDisplay: React.FC<StatsDisplayProps> = ({
   showReadingTime = true,
 }) => {
   return (
-    <div>
-      <div>
+    <div className="grid grid-cols-3 gap-4 mt-6 text-center">
+      <div className="p-4 bg-gray-100 rounded-lg">
         <p className="text-sm text-gray-500">Characters</p>
         <p className="text-2xl font-bold">{stats.characterCount}</p>
       </div>
 
-      <div>
+      <div className="p-4 bg-gray-100 rounded-lg">
         <p className="text-sm text-gray-500">Words</p>
         <p className="text-2xl font-bold">{stats.wordCount}</p>
       </div>

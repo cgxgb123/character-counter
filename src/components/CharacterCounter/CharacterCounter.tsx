@@ -1,6 +1,7 @@
 // src/components/CharacterCounter/CharacterCounter.tsx
 import React, { useState, useCallback } from "react";
 import TextInput from "../TextInput/TextInput";
+import { StatsDisplay } from "../StatsDisplay/StatsDisplay";
 import { CharacterCounterProps, TextStats } from "../../types";
 
 export const CharacterCounter: React.FC<CharacterCounterProps> = ({
@@ -39,6 +40,8 @@ export const CharacterCounter: React.FC<CharacterCounterProps> = ({
   return (
     <div className="max-w-3xl mx-auto p-6">
       <TextInput onTextChange={textChange} />
+
+      <StatsDisplay stats={stats} />
 
       <div className="mt-4 text-center">
         <p className={`font-medium ${wordStatus}`}>
