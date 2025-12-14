@@ -1,4 +1,3 @@
-// src/components/CharacterCounter/CharacterCounter.tsx
 import React, { useState, useCallback } from "react";
 import TextInput from "../TextInput/TextInput";
 import { StatsDisplay } from "../StatsDisplay/StatsDisplay";

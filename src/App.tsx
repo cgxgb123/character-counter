@@ -16,12 +16,12 @@ function App() {
   const handleTextChange = (value: string) => {
     const wordCount =
       value.trim() === "" ? 0 : value.trim().split(/\s+/).length;
-
+    const readingTime = (wordCount / 200) * 60; // 200 wpm
     setText(value);
     setStats({
       characterCount: value.length,
       wordCount,
-      readingTime: wordCount / 200,
+      readingTime,
     });
   };
 

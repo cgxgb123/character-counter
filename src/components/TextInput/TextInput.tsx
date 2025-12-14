@@ -1,4 +1,3 @@
-// src/components/TextInput/TextInput.tsx
 import React from "react";
 import { TextInputProps } from "../../types";
 

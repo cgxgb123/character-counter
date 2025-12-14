@@ -1,4 +1,3 @@
-// src/components/StatsDisplay/StatsDisplay.tsx
 import React from "react";
 import { StatsDisplayProps } from "../../types";
 
@@ -6,6 +5,10 @@ export const StatsDisplay: React.FC<StatsDisplayProps> = ({
   stats,
   showReadingTime = true,
 }) => {
+  const totalSeconds = Math.round(stats.readingTime);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
   return (
     <div className="grid grid-cols-3 gap-4 mt-6 text-center">
       <div className="p-4 bg-gray-100 rounded-lg">
@@ -22,7 +25,7 @@ export const StatsDisplay: React.FC<StatsDisplayProps> = ({
         <div className="p-4 bg-gray-100 rounded-lg">
           <p className="text-sm text-gray-500">Reading Time</p>
           <p className="text-2xl font-bold">
-            {stats.readingTime.toFixed(2)} min
+            {minutes}:{seconds.toString().padStart(2, "0")}
           </p>
         </div>
       )}
