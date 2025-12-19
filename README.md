@@ -1,73 +1,30 @@
-# React + TypeScript + Vite
+# Character Counter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![TextBox](./src/assets/image.png)
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [About the Author](#author)
+- [Reflection](#reflection)
 
-## React Compiler
+## <a name="author"></a>About The Authors
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **[Christian Blunt](https://www.linkedin.com/in/christiangblunt/)**
 
-## Expanding the ESLint configuration
+## <a name="reflection"></a>Reflection
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. How did you handle state updates when the text changed?
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+State updates were handled by lifting the text state up to the `CharacterCounter` component and passing a callback function down to the `TextInput` component. Whenever the user typed into the textarea, the `onTextChange` callback was triggered, updating the text state using `useState`. This ensured a single source of truth for the text while allowing child components to remain stateless and focused on their responsibilities. State updates automatically triggered re-renders, keeping the UI in sync with user input.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. What considerations did you make when calculating reading time?
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Reading time was calculated based on word count rather than character count to better reflect real-world reading behavior. I accounted for edge cases such as empty input to avoid division errors and ensured the calculation remained lightweight to support real-time updates. The logic was kept simple and deterministic so it could run efficiently on every keystroke without negatively impacting performance.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3. How did you ensure the UI remained responsive during rapid text input?
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+To keep the UI responsive, I avoided unnecessary state variables and recalculations by deriving statistics directly from the text state. Each update relied on straightforward string operations, which are inexpensive to compute. Component responsibilities were clearly separated so only the components dependent on the updated state re-rendered, preventing excessive or unnecessary UI updates during rapid typing.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 4. What challenges did you face when implementing the statistics calculations?
+
+One of the main challenges was accurately calculating word count and reading time while handling edge cases such as extra spaces, line breaks, and empty input. Ensuring consistency between character count, word count, and reading time required careful string parsing and validation. Another challenge was maintaining readability and organization of the calculation logic while keeping it performant and easy to maintain.
